@@ -12,15 +12,24 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $authHeader = $request->getHeaderLine('Authorization');
+        $validToken = env('API_TOKEN');
 
-        if ($authHeader !== 'Bearer HEALTHY-FOOD-2025') {
-            return Services::response()
-                ->setStatusCode(401)
-                ->setJSON([
-                    'status' => 401,
-                    'message' => 'Unauthorized. Invalid or missing token.'
-                ]);
+        if ($authHeader !== 'Bearer ' . $validToken) {
+            return Services::response()->setStatusCode(401)->setJSON([
+                'status' => 401,
+                'message' => 'Unauthorized. Invalid or missing token.'
+            ]);
         }
+
+
+        // if ($authHeader !== 'Bearer HEALTHY-FOOD-2025') {
+        //     return Services::response()
+        //         ->setStatusCode(401)
+        //         ->setJSON([
+        //             'status' => 401,
+        //             'message' => 'Unauthorized. Invalid or missing token.'
+        //         ]);
+        // }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
