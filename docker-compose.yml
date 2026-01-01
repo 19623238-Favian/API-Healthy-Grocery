@@ -19,13 +19,18 @@ services:
           memory: 256M
 
   db:
-    image: mysql:8.0
+    image: mariadb:10.6              # gunakan versi yang stabil
     container_name: healthy-food-db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: healthy_foods
+      MYSQL_DATABASE: healthy_foods   # nama DB harus sama dengan di init.sql
+      MYSQL_USER: user                # optional
+      MYSQL_PASSWORD: root    # optional
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
     volumes:
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"                   # boleh dipakai untuk debug
     deploy:
       resources:
         limits:

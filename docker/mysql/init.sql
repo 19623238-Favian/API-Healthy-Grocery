@@ -1,7 +1,8 @@
+CREATE DATABASE IF NOT EXISTS healthy_foods;
 USE healthy_foods;
 
+-- Set environment
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 CREATE TABLE `cleaned_nutrition_dataset_per100g` (
