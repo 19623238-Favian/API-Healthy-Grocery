@@ -2,8 +2,9 @@
 # UAS II3160 - Mengembangkan Layanan Microservice (Tugas 2)
 ## Healthy Grocery Recommendation API
 Microservice ini dikembangkan dalam rangka memenuhi UAS II3160 Teknologi Sistem Terintegrasi, lebih tepatnya Tugas 2 - Mengembangkan Layanan Microservices 
-Nama Pembuat API: Favian Rafi Laftiyanto / 18223036
-Nama Rekan Sekelompok: Ahmad Evander Ruizhi Xavier / 18223064
+
+- Nama Pembuat API: Favian Rafi Laftiyanto / 18223036
+- Nama Rekan Sekelompok: Ahmad Evander Ruizhi Xavier / 18223064
 
 ### A. Deskripsi
 Healthy Grocery Recommendation API adalah sebuah microservice berbasis REST API yang menyediakan rekomendasi makanan sehat berdasarkan constraint nutrisi (misalnya berdasarkan kebutuhan kalori, protein, tipe diet, dll.)
@@ -36,7 +37,11 @@ Berikut adalah format Header yang diperlukan untuk mendapatkan izin untuk memanf
 Authorization: Bearer HEALTHY-FOOD-2025
 ```
 
-Dengan header tersebut, API akan mengembalikan string JSON berisi makanan sehat. Apabila tidak menggunakan header, maka server akan mengembalikan:
+Dengan header tersebut, API akan mengembalikan string JSON berisi makanan sehat. 
+Berikut contoh memasang Headernya dengan Postman:
+<img width="1447" height="431" alt="image" src="https://github.com/user-attachments/assets/d581330c-0cad-48b5-8953-72e5f4d74cf9" />
+
+Apabila tidak menggunakan header, maka server akan mengembalikan:
 ```
 {
   "status": "unauthorized",
@@ -49,6 +54,16 @@ URL bersifat **statis** karena memanfaatkan tunneling **Cloudflared** ke domain 
 - GET https://api.cirro.my.id/ping -> untuk mencoba apakah API aktif dan berjalan dengan baik  (API check)
 - GET https://api.cirro.my.id/api/recommendation/food -> untuk mendapatkan data semua makanan yang ada pada database (GET all food data)
 - POST https://api.cirro.my.id/api/recommendation/food -> untuk mendapatkan 5 makanan sehat yang paling cocok untuk direkomendasikan sesuai dengan input/constraint yang diberikan (GET food recommendation)
+Khusus untuk POST /api/recommendation/food, dibutuhkan constraint, adapun berikut adalah contoh constraint (diletakkan pada body) yang dapat diproses API:
+```
+{
+  "constraints": {
+    "max_calories": 300,
+    "low_sugar": true,
+    "high_fiber": false
+  }
+}
+```
 
 ### F. Cara Deployment pada STB dengan Docker
 1. Clone repositori ini pada STB dengan 
