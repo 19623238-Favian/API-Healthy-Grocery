@@ -1,31 +1,24 @@
-CREATE DATABASE IF NOT EXISTS healthy_foods;
-USE healthy_foods;
+BEGIN;
 
--- Set environment
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+DROP TABLE IF EXISTS cleaned_nutrition_dataset_per100g;
 
-CREATE TABLE `cleaned_nutrition_dataset_per100g` (
-  `vitamin_c_mg` float DEFAULT NULL,
-  `vitamin_b11_mg` float DEFAULT NULL,
-  `sodium_mg` float DEFAULT NULL,
-  `calcium_mg` float DEFAULT NULL,
-  `carbohydrates_g` float DEFAULT NULL,
-  `food` varchar(86) DEFAULT NULL,
-  `iron_mg` float DEFAULT NULL,
-  `calories_kcal` float DEFAULT NULL,
-  `sugars_g` float DEFAULT NULL,
-  `fibers_g` float DEFAULT NULL,
-  `fat_g` float DEFAULT NULL,
-  `protein_g` float DEFAULT NULL,
-  `food_normalized` varchar(86) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE cleaned_nutrition_dataset_per100g (
+  vitamin_c_mg FLOAT,
+  vitamin_b11_mg FLOAT,
+  sodium_mg FLOAT,
+  calcium_mg FLOAT,
+  carbohydrates_g FLOAT,
+  food VARCHAR(86),
+  iron_mg FLOAT,
+  calories_kcal FLOAT,
+  sugars_g FLOAT,
+  fibers_g FLOAT,
+  fat_g FLOAT,
+  protein_g FLOAT,
+  food_normalized VARCHAR(86)
+);
 
---
--- Dumping data for table `cleaned_nutrition_dataset_per100g`
---
-
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+INSERT INTO cleaned_nutrition_dataset_per100g (vitamin_c_mg, vitamin_b11_mg, sodium_mg, calcium_mg, carbohydrates_g, food, iron_mg, calories_kcal, sugars_g, fibers_g, fat_g, protein_g, food_normalized) VALUES
 (0.082, 0.086, 0.018, 2.8, 0.073, 'margarine with yoghurt', 0.027, 88, 0, 0, 9.8, 0.058, 'margarine with yoghurt'),
 (0.4, 0.005, 0.065, 10.2, 3.7, 'sunflower seed butter', 0.7, 99, 1.7, 0.9, 8.8, 2.8, 'sunflower seed butter'),
 (0, 0, 0, 0, 0, 'hazelnut oil', 0, 120, 0, 0, 13.6, 0, 'hazelnut oil'),
@@ -545,8 +538,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (7, 0.015, 0.031, 12.2, 31.9, 'yautia tannier', 1.3, 132, 0, 2, 0.5, 2, 'yautia tannier'),
 (117, 0.1, 0.5, 284.4, 5, 'mustard spinach cooked', 1.4, 29, 0, 3.6, 0.4, 3.1, 'mustard spinach cooked'),
 (0.041, 0.071, 0.007, 0.081, 74.9, 'rhubarb cooked', 0.024, 278, 68.9, 4.8, 0.1, 0.9, 'rhubarb cooked'),
-(0.026, 0.096, 0.1, 0.079, 13, 'beets raw', 0.1, 58, 9.2, 3.8, 0.2, 2.2, 'beets raw');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(0.026, 0.096, 0.1, 0.079, 13, 'beets raw', 0.1, 58, 9.2, 3.8, 0.2, 2.2, 'beets raw'),
 (141, 0.083, 0.077, 30, 8.5, 'drumstick pods raw', 0.4, 37, 0, 3.2, 0.2, 2.1, 'drumstick pods raw'),
 (3.8, 0.035, 0.041, 2.3, 0.3, 'baby zucchini', 0.098, 2, 0, 0.1, 0.089, 0.3, 'baby zucchini'),
 (0.098, 0.047, 0.065, 0.08, 3.7, 'onion raw', 0.011, 16, 1.7, 0.7, 0.048, 0.4, 'onion raw'),
@@ -1052,8 +1044,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (1.5, 0.1, 0.9, 188.7, 28.7, 'frijoles with cheese', 2.2, 225, 0, 0, 7.8, 11.4, 'frijoles with cheese'),
 (0.1, 0.4, 0.5, 0.042, 43.9, 'burrito with beef', 0.2, 285, 4.1, 4.4, 8.1, 9.1, 'burrito with beef'),
 (0, 0, 0.7, 46.6, 33.2, 'crispy chicken sandwich', 1.9, 350, 3.9, 0, 17.6, 14.8, 'crispy chicken sandwich'),
-(0.2, 0.081, 0.7, 0, 21.2, 'enchilada with cheese', 0.2, 374, 3.6, 2.6, 25.3, 15.4, 'enchilada with cheese');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(0.2, 0.081, 0.7, 0, 21.2, 'enchilada with cheese', 0.2, 374, 3.6, 2.6, 25.3, 15.4, 'enchilada with cheese'),
 (24.9, 0.019, 0.3, 28.9, 25.1, 'pork egg roll', 1.3, 189, 4.5, 1.8, 6.1, 8.4, 'pork egg roll'),
 (6.9, 0.045, 0.056, 4.4, 31.9, 'corn on the cob with butter', 0.9, 155, 0, 0, 3.4, 4.5, 'corn on the cob with butter'),
 (1.7, 0.082, 0.6, 63.8, 45.4, 'pancakes with butter syrup', 1.3, 260, 0, 0, 7, 4.1, 'pancakes with butter syrup'),
@@ -1562,8 +1553,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (30.2, 0.045, 0.05, 41.8, 13.8, 'blackberries raw', 0.9, 62, 7, 7.6, 0.7, 2, 'blackberries raw'),
 (0.038, 0.077, 0, 0.047, 7.5, 'plum', 0.056, 30, 6.5, 0.9, 0.2, 0.5, 'plum'),
 (0.032, 0.049, 0.056, 0.3, 0.4, 'american grapes', 0.099, 2, 0.4, 0.09, 0.087, 0.035, 'american grapes'),
-(0.075, 0.035, 0, 0.042, 14.3, 'peach', 0.1, 59, 12.6, 2.3, 0.4, 1.4, 'peach');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(0.075, 0.035, 0, 0.042, 14.3, 'peach', 0.1, 59, 12.6, 2.3, 0.4, 1.4, 'peach'),
 (31.9, 0.052, 0.062, 10.6, 16.1, 'honeydew melon', 0.3, 64, 14.4, 1.4, 0.2, 1, 'honeydew melon'),
 (0, 0, 0.079, 10.1, 68.9, 'yellow plantain fried', 1, 399, 36.8, 5.4, 12.7, 2.4, 'yellow plantain fried'),
 (541, 0.085, 0.035, 214.6, 48.5, 'rose hips', 1.3, 206, 3.3, 30.6, 0.4, 2, 'rose hips'),
@@ -2083,8 +2073,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (0, 0.051, 1.2, 126.3, 5.5, 'turkey taco meat cooked', 3.3, 271, 0, 0, 13.9, 30.7, 'turkey taco meat cooked'),
 (0.7, 0.053, 0.3, 31, 0.6, 'chicken leg raw', 2.4, 736, 0, 0, 54.9, 56.3, 'chicken leg raw'),
 (14.7, 0.039, 0.6, 101.2, 0, 'chicken meat raw', 8.3, 999.99, 0, 0, 138.6, 171.1, 'chicken meat raw'),
-(0, 0.078, 0.085, 10.3, 0, 'chicken neck cooked', 0.9, 94, 0, 0, 6.9, 7.5, 'chicken neck cooked');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(0, 0.078, 0.085, 10.3, 0, 'chicken neck cooked', 0.9, 94, 0, 0, 6.9, 7.5, 'chicken neck cooked'),
 (0, 0.065, 0.2, 12.2, 6, 'chicken drumstick fried', 1, 193, 0, 0.2, 11.3, 15.8, 'chicken drumstick fried'),
 (0, 0.089, 0.042, 5.8, 0.08, 'quail egg', 0.3, 14, 0.048, 0, 1, 1.2, 'quail egg'),
 (0, 0.073, 0.041, 15.4, 0, 'duck meat cooked', 3.8, 472, 0, 0, 39.7, 26.6, 'duck meat cooked'),
@@ -2560,8 +2549,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (2.28, 15.86, 202.36, 116.04, 32.84, 'Semolina dosa (Suji/Rava dosa)', 1.39, 227.05, 4.37, 4.04, 7.12, 7.3, 'semolina dosa (suji/rava dosa)'),
 (4.78, 11.68, 143.53, 5.82, 11.32, 'Onion tomato uttapam', 0.36, 462.02, 0.8, 1.26, 45.3, 1.91, 'onion tomato uttapam'),
 (18.67, 54.04, 221.03, 101.66, 20.1, 'Paneer kaathi roll', 1.42, 285.94, 3.29, 2.4, 19.55, 6.92, 'paneer kaathi roll'),
-(1.99, 10.72, 236.22, 14.76, 24.19, 'Makki ki roti', 1.11, 263.97, 0.7, 5.19, 16.85, 3.49, 'makki ki roti');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(1.99, 10.72, 236.22, 14.76, 24.19, 'Makki ki roti', 1.11, 263.97, 0.7, 5.19, 16.85, 3.49, 'makki ki roti'),
 (0.04, 27.98, 150.64, 8.48, 5.91, 'Washed moong dal (Dhuli moong ki dal)', 0.64, 50, 0.12, 1.17, 1.68, 2.68, 'washed moong dal (dhuli moong ki dal)'),
 (0.99, 30.4, 142.21, 10.24, 5.84, 'Washed urad dal (Dhuli urad ki dal)', 0.72, 61.32, 0.32, 1.53, 2.98, 2.51, 'washed urad dal (dhuli urad ki dal)'),
 (15.2, 90.42, 149.47, 14.33, 7.1, 'Split bengal gram with bottle gourd (Channa dal with ghiya/lauki)', 0.99, 73.25, 1.05, 2.72, 3.6, 2.79, 'split bengal gram with bottle gourd (channa dal with ghiya/lauki)'),
@@ -2588,7 +2576,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (68.76, 73.14, 221.93, 107.8, 8.47, 'Potato fenugreek (Aloo methi)', 2.53, 135.15, 0.54, 2.93, 10.04, 2.25, 'potato fenugreek (aloo methi)'),
 (24.05, 92.42, 132.15, 17.85, 4.4, 'Brinjal bhartha (Baingan ka bhartha)', 0.48, 65.12, 1.82, 3.27, 4.48, 1.38, 'brinjal bhartha (baingan ka bhartha)'),
 (23.23, 15.7, 199.99, 17.2, 14.38, 'Dry potato (Sookhe aloo)', 0.83, 103.15, 0.33, 1.88, 4.18, 1.62, 'dry potato (sookhe aloo)'),
-(6.03, 75.87, 271.65, 51.92, 4.39, 'Beans with coconut (Nariyal aur sem/phali; Beans thoran)', 1.34, 131.63, 2.06, 5.59, 11.39, 2.62, 'beans with coconut (nariyal aur sem/phali; beans thoran)'),
+(6.03, 75.87, 271.65, 51.92, 4.39, 'Beans with coconut (Nariyal aur sem/phali, Beans thoran)', 1.34, 131.63, 2.06, 5.59, 11.39, 2.62, 'beans with coconut (nariyal aur sem/phali, beans thoran)'),
 (51.79, 59.84, 286.06, 35.37, 3.99, 'Cauliflower with coconut (Nariyal ke saath phoolgobhi)', 1.33, 132.11, 1.71, 5.27, 11.56, 2.64, 'cauliflower with coconut (nariyal ke saath phoolgobhi)'),
 (41.01, 72.27, 219.6, 48.63, 4.99, 'Carrot and cabbage with coconut (Nariyal ke saath pattagobhi aur gajar)', 0.84, 106.61, 2.36, 4.52, 8.62, 1.82, 'carrot and cabbage with coconut (nariyal ke saath pattagobhi aur gajar)'),
 (21.65, 27.89, 275.55, 50.65, 5.78, 'Raw turnip with coconut ', 0.82, 132.15, 4.4, 2.79, 11.47, 1.8, 'raw turnip with coconut'),
@@ -2620,7 +2608,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (71.44, 76.8, 123.36, 24.61, 4.48, 'Cauliflower musallam (Phoolgobhi musallam)', 0.83, 58.83, 1.71, 3.06, 3.55, 1.89, 'cauliflower musallam (phoolgobhi musallam)'),
 (78.95, 223.29, 122.85, 78.63, 6.93, 'Baked vegetables with spinach ', 1.16, 77.79, 2.09, 2.33, 4.03, 3.22, 'baked vegetables with spinach'),
 (11.88, 9.99, 354.5, 90.06, 11.11, 'Baked potato with skin ', 0.5, 135.77, 1.66, 1.2, 8.5, 3.43, 'baked potato with skin'),
-(51.68, 90.43, 118.2, 85.59, 12.03, 'Shepherd\'s pie (vegetarian)', 0.76, 135.63, 2.78, 2.23, 7.3, 5.04, 'shepherd\'s pie (vegetarian)'),
+(51.68, 90.43, 118.2, 85.59, 12.03, 'Shepherds pie (vegetarian)', 0.76, 135.63, 2.78, 2.23, 7.3, 5.04, 'shepherds pie (vegetarian)'),
 (68.38, 103.99, 79.66, 26.24, 4.13, 'Baked brinjal in tomato sauce', 0.32, 38.63, 2.2, 2.34, 1.62, 1.58, 'baked brinjal in tomato sauce'),
 (29.39, 34.41, 183.85, 16.49, 3.33, 'Dum aloo', 0.36, 682.33, 0.71, 0.68, 74.01, 0.7, 'dum aloo'),
 (60.21, 267.05, 166.87, 113.25, 4.43, 'Spinach paneer (Palak paneer)', 1.85, 77.68, 2.55, 1.91, 4.76, 4.03, 'spinach paneer (palak paneer)'),
@@ -2646,7 +2634,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (3.75, 16.68, 51.03, 36.18, 1.48, 'Mutton chops', 0.64, 663.64, 0.42, 0.17, 71.31, 4.03, 'mutton chops'),
 (1.64, 20.55, 54.27, 13.11, 3.54, 'Shammi kebab', 0.75, 685.69, 0.31, 1.05, 72.61, 4.52, 'shammi kebab'),
 (2.59, 30.63, 90.67, 15.03, 1.91, 'Scotch egg', 0.6, 676.89, 0.3, 0.36, 72.62, 4.05, 'scotch egg'),
-(19.35, 21.04, 197.25, 21.3, 8.06, 'Shepherd\'s pie (with minced meat)', 0.84, 142.78, 1.7, 1.05, 8.88, 7.45, 'shepherd\'s pie (with minced meat)'),
+(19.35, 21.04, 197.25, 21.3, 8.06, 'Shepherds pie (with minced meat)', 0.84, 142.78, 1.7, 1.05, 8.88, 7.45, 'shepherds pie (with minced meat)'),
 (16.79, 38.7, 108, 27.29, 3.38, 'Chicken curry', 0.87, 129.22, 1.79, 1.41, 7.57, 11.79, 'chicken curry'),
 (39.53, 182.73, 158, 44.33, 2.34, 'Tandoori chicken', 0.9, 145.2, 1.58, 0.5, 7.93, 16.26, 'tandoori chicken'),
 (32.65, 40.85, 26.21, 25.28, 3.74, 'Butter chicken', 0.92, 137, 2.37, 1.32, 8.7, 10.92, 'butter chicken'),
@@ -2918,7 +2906,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (9.72, 16.52, 281.62, 127.51, 10.66, 'Cheese and tomato pancake', 0.64, 147.39, 3.48, 1.06, 9.28, 5.15, 'cheese and tomato pancake'),
 (2.14, 12.77, 4942.18, 64.72, 8.18, 'Minced meat pancake (with chicken)', 1.99, 116.04, 1.29, 0.7, 10.48, 12.01, 'minced meat pancake (with chicken)'),
 (3.23, 77.11, 59.06, 36.02, 31.74, 'Eggplant/Brinjal rice (Vangi bhat)', 1.91, 184.8, 4.36, 4.44, 3.67, 5.28, 'eggplant/brinjal rice (vangi bhat)'),
-(0.02, 7.94, 61.29, 3.93, 19.11, 'Kashmiri \'tahar\'', 0.32, 98.21, 0.17, 0.98, 1.37, 1.95, 'kashmiri \'tahar\''),
+(0.02, 7.94, 61.29, 3.93, 19.11, 'Kashmiri tahar', 0.32, 98.21, 0.17, 0.98, 1.37, 1.95, 'kashmiri tahar'),
 (1.42, 13.85, 219.73, 7.25, 23.61, 'Cumin pulao (Jeera/Zeera pulao)', 0.33, 135.24, 0.64, 1.4, 3.2, 2.47, 'cumin pulao (jeera/zeera pulao)'),
 (62.36, 110.56, 86.18, 18.18, 18.42, 'Peas pulao (Matar pulao)', 0.78, 108.87, 1.3, 3.21, 1.9, 3.89, 'peas pulao (matar pulao)'),
 (27.07, 104.21, 98.07, 19.09, 19.72, 'Split bengal gram dal and vegetable pulao (Channa dal and vegetable pulao)', 0.82, 116.53, 1.59, 3.16, 2.3, 3.6, 'split bengal gram dal and vegetable pulao (channa dal and vegetable pulao)'),
@@ -2944,8 +2932,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (1.88, 22.49, 115.6, 8.29, 6.04, 'Sour lentils (Khatti dal)', 0.85, 34.79, 1.25, 1.22, 0.12, 2.22, 'sour lentils (khatti dal)'),
 (17.4, 54.46, 109.56, 16.4, 8.86, 'Urad special dehusked', 0.83, 69.43, 1.32, 2.5, 2.17, 3.14, 'urad special dehusked'),
 (18.79, 105.9, 109.97, 21.81, 4.77, 'Arhar with spinach (Arhar dal aur palak)', 0.89, 52.84, 0.23, 1.3, 2.76, 2.05, 'arhar with spinach (arhar dal aur palak)'),
-(10.19, 11.52, 112.36, 2.99, 1, 'Moong dal with vadi', 0.18, 24.08, 0.45, 0.39, 2.05, 0.4, 'moong dal with vadi');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(10.19, 11.52, 112.36, 2.99, 1, 'Moong dal with vadi', 0.18, 24.08, 0.45, 0.39, 2.05, 0.4, 'moong dal with vadi'),
 (17.27, 28.68, 104.11, 16.56, 3.37, 'Rasam with tamarind (Puli rasam/ Chintapandu rasam/ Charu/Saaru)', 0.59, 26.74, 0.83, 1.6, 0.88, 1.13, 'rasam with tamarind (puli rasam/ chintapandu rasam/ charu/saaru)'),
 (19.71, 28.91, 102.77, 15.56, 2.85, 'Rasam with lemon (Nimmakaya rasam/Nimmakaya charu/Elumichai rasam/Nimbe hannina saaru)', 0.52, 24.41, 0.44, 1.54, 0.87, 1.11, 'rasam with lemon (nimmakaya rasam/nimmakaya charu/elumichai rasam/nimbe hannina saaru)'),
 (0.48, 45.28, 181.69, 25.04, 6.8, 'Green gram whole with baghar (Sabut moong dal with tadka)', 1, 63.43, 0.15, 3.02, 2.48, 3.23, 'green gram whole with baghar (sabut moong dal with tadka)'),
@@ -2997,8 +2984,8 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (8.11, 32.76, 81.25, 22.77, 11.11, 'Dry arbi (Sookhi arbi)', 0.68, 134.95, 1.55, 2.47, 8.97, 2.12, 'dry arbi (sookhi arbi)'),
 (1.9, 20.12, 261.31, 32.08, 16.16, 'Masala arbi', 0.99, 185.38, 0.81, 3.1, 11.9, 3.01, 'masala arbi'),
 (27.86, 82.49, 63.65, 19.63, 5.02, 'Peas brinjal bhartha (Matar baingan bhartha)', 0.63, 84.55, 1.57, 3.63, 6.05, 2.05, 'peas brinjal bhartha (matar baingan bhartha)'),
-(29.07, 85.27, 92.78, 67.88, 4.5, 'Okra/Lady\'s fingers fry (Bhindi sabzi/sabji/subji)', 0.88, 110.81, 1.42, 3.57, 9.27, 1.83, 'okra/lady\'s fingers fry (bhindi sabzi/sabji/subji)'),
-(18.14, 90.04, 40.42, 27.61, 4.35, 'Crispy okra/Crispy lady\'s fingers (Karare bhindi)', 0.56, 657.76, 0.26, 1.75, 70.4, 1.91, 'crispy okra/crispy lady\'s fingers (karare bhindi)'),
+(29.07, 85.27, 92.78, 67.88, 4.5, 'Okra/Ladys fingers fry (Bhindi sabzi/sabji/subji)', 0.88, 110.81, 1.42, 3.57, 9.27, 1.83, 'okra/ladys fingers fry (bhindi sabzi/sabji/subji)'),
+(18.14, 90.04, 40.42, 27.61, 4.35, 'Crispy okra/Crispy ladys fingers (Karare bhindi)', 0.56, 657.76, 0.26, 1.75, 70.4, 1.91, 'crispy okra/crispy ladys fingers (karare bhindi)'),
 (6.36, 86.05, 81.22, 44.2, 3.26, 'Beans foogath', 0.95, 105.06, 1.7, 4.15, 9.22, 2.03, 'beans foogath'),
 (46.93, 63.07, 360.09, 17.25, 4.68, 'Stuffed bittergourd (wet) (Bharwa karele)', 0.91, 162.36, 1.95, 2.86, 15.24, 1.36, 'stuffed bittergourd (wet) (bharwa karele)'),
 (21.72, 55.34, 33.68, 12.79, 4.56, 'Jackfruit/Kathal (dry)', 0.33, 488.97, 3.55, 1.33, 51.78, 0.93, 'jackfruit/kathal (dry)'),
@@ -3327,8 +3314,7 @@ INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg
 (4.03, 8.97, 86.87, 2.01, 7.32, 'Banana chips (Kele ke chips)', 0.19, 665.67, 4.37, 0.65, 70.46, 0.37, 'banana chips (kele ke chips)'),
 (0.76, 7.6, 82.96, 98.91, 41.13, 'Wheat cake', 1.08, 314.63, 25.79, 2.76, 14.95, 4.79, 'wheat cake'),
 (24.93, 68.68, 107.12, 55.1, 20.06, 'Mango cheesecake', 0.53, 152.46, 15.36, 1.14, 7.3, 2.39, 'mango cheesecake'),
-(3.12, 17.06, 158.74, 156.1, 35.98, 'Carrot cake (Gajar ka cake)', 1.03, 255.59, 23.96, 2.93, 10.27, 5.6, 'carrot cake (gajar ka cake)');
-INSERT INTO `cleaned_nutrition_dataset_per100g` (`vitamin_c_mg`, `vitamin_b11_mg`, `sodium_mg`, `calcium_mg`, `carbohydrates_g`, `food`, `iron_mg`, `calories_kcal`, `sugars_g`, `fibers_g`, `fat_g`, `protein_g`, `food_normalized`) VALUES
+(3.12, 17.06, 158.74, 156.1, 35.98, 'Carrot cake (Gajar ka cake)', 1.03, 255.59, 23.96, 2.93, 10.27, 5.6, 'carrot cake (gajar ka cake)'),
 (0.94, 9.42, 91.36, 128.28, 31.32, 'Semolina cake (Suji/Rava cake)', 1.36, 374.14, 18.86, 5.37, 25.18, 6.58, 'semolina cake (suji/rava cake)'),
 (0.76, 11.41, 98.26, 118.38, 38.93, 'Finger millet cake (Ragi cake)', 1.35, 279.46, 24.76, 2.35, 12.27, 3.96, 'finger millet cake (ragi cake)'),
 (0.53, 10.06, 72.55, 50.86, 49.04, 'Honey cake', 0.46, 333.59, 33.43, 0.51, 14.7, 3.08, 'honey cake'),
