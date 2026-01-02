@@ -11,13 +11,9 @@ $routes->get('/ping', function () {
 });
 
 $routes->group('api', ['filter' => 'auth'], function ($routes) {
-    $routes->get('recommendation/food', function () {
-        return 'API OK';
-    });
+    // $routes->get('recommendation/food', function () {
+    //     return 'API OK';
+    // });
+    $routes->get('recommendation/food', 'RecommendationController::index');
     $routes->post('recommendation/food', 'RecommendationController::recommend');
 });
-
-// $routes->get('api/recommendation/food', function () {
-//     return 'API OK';
-// });
-// $routes->post('/api/recommendation/food', 'RecommendationController::recommend');
