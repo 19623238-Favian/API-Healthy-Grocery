@@ -11,7 +11,19 @@ Healthy Grocery Recommendation API adalah sebuah microservice berbasis REST API 
 
 Layanan ini dikembangkan menggunakan **Codeigniter 4** dan menerapkan **token-based authentication**. API di-deploy menggunakan **Docker** pada sebuah **Set Top Box (STB)** 1GB RAM, sedangkan untuk database menggunakan **PostgreSQL NeonDB** sehingga beban komputasi STB tetap ringan, stabil, dan mencegah terjadinya hang pada STB.
 
-### B. Technology Stack
+### B. Fitur Utama
+- Autentikasi menggunakan Bearer Token (Authorization Header)
+- Algoritma rekomendasi makanan berdasarkan kadar nutrisi makanan seperti:
+  - Maksimum kalori per sajian (kcal)
+  - Karbohidrat (g)
+  - Protein (g)
+  - Lemak (g)
+  - Sodium (mg)
+  - Gula (g)
+  - Fiber/Serat (g)
+- Dapat diintegrasikan dengan layanan lain
+
+### C. Technology Stack yang Digunakan
 - Backend Framework: CodeIgniter 4
 - Language: PHP 8.2
 - Database: PostgreSQL (memanfaatkan NeonDB)
@@ -19,7 +31,7 @@ Layanan ini dikembangkan menggunakan **Codeigniter 4** dan menerapkan **token-ba
 - Authentication: Bearer Token (Authorization Header)
 - Deployment Target: Set Top Box (Armbian Linux)
 
-### C. Arsitektur Sistem
+### D. Arsitektur Sistem
 ```
 Client (Web / Postman)
         |
@@ -30,7 +42,7 @@ Healthy Grocery API (Docker - STB)
 PostgreSQL NeonDB (Cloud)
 ```
 
-### D. Cara Kerja Authentication & Authorization
+### E. Cara Kerja Authentication & Authorization
 Beberapa endpoint API ini dilindungi dengan **Bearer Token Authentication**
 Berikut adalah format Header yang diperlukan untuk mendapatkan izin untuk memanfaatkan API ini:
 ```
@@ -49,23 +61,106 @@ Apabila tidak menggunakan header, maka server akan mengembalikan:
 }
 ```
 
-### E. URL API/Microservice dan API Endpoints
+### F. URL API/Microservice dan API Endpoints
 URL bersifat **statis** karena memanfaatkan tunneling **Cloudflared** ke domain cirro.my.id. Berikut adalah URL untuk Microservice ini beserta fungsinya:
 - GET https://api.cirro.my.id/ping -> untuk mencoba apakah API aktif dan berjalan dengan baik  (API check)
 - GET https://api.cirro.my.id/api/recommendation/food -> untuk mendapatkan data semua makanan yang ada pada database (GET all food data)
-- POST https://api.cirro.my.id/api/recommendation/food -> untuk mendapatkan 5 makanan sehat yang paling cocok untuk direkomendasikan sesuai dengan input/constraint yang diberikan (GET food recommendation)
-Khusus untuk POST /api/recommendation/food, dibutuhkan constraint, adapun berikut adalah contoh constraint (diletakkan pada body) yang dapat diproses API:
+- POST https://api.cirro.my.id/api/recommendation/food -> untuk mendapatkan 15 makanan sehat yang paling cocok untuk direkomendasikan sesuai dengan input/constraint yang diberikan (GET food recommendation)
+
+### G. Cara Menggunakan API
+- Untuk endpoint POST /api/recommendation/food, API ini dapat memproses berbagai macam constraint yang berkaitan dengan nutrisi dan makanan. Berikut adalah bentuk set constraint dan daftar contraint apa saja yang dapat dimasukkan ke dalam API ini (beserta contoh valuenya):
 ```
 {
-  "constraints": {
-    "max_calories": 300,
-    "low_sugar": true,
-    "high_fiber": false
-  }
+    "meta": {
+        "age": 45,
+        "gender": "female",
+        "bmi": 29.1,
+        "bmi_category": "overweight",
+        "bmr": 1484,
+        "daily_calorie_needs": 2300
+    },
+    "constraints": {
+        "max_calories_per_serving": 300,
+        "macros": {
+            "carbohydrates": {
+                "max_g": 37
+            },
+            "protein": {
+                "min_g": 18
+            },
+            "fat": {
+                "max_g": 8
+            }
+        },
+        "micros": {
+            "sodium_mg_max": 300,
+            "sugars_g_max": 5,
+            "dietary_fiber_g_min": 6
+        }
+    },
+    "diet_flags": {
+        "low_sugar": true,
+        "low_sodium": true,
+        "heart_friendly": false,
+        "high_fiber": true
+    }
 }
 ```
 
-### F. Cara Deployment pada STB dengan Docker
+Dan berikut adalah contoh Output yang dihasilkan oleh API (untuk POST ke endpoint /api/recommendation/food):
+```
+{
+    "status": "success",
+    "count": 15,
+    "data": [
+        {
+            "vitamin_c_mg": "0",
+            "vitamin_b11_mg": "0.005",
+            "sodium_mg": "0.9",
+            "calcium_mg": "137.9",
+            "carbohydrates_g": "6.1",
+            "food": "cottage cheese low fat",
+            "iron_mg": "0.3",
+            "calories_kcal": "163",
+            "sugars_g": "6.1",
+            "fibers_g": "0",
+            "fat_g": "2.3",
+            "protein_g": "28",
+            "food_normalized": "cottage cheese low fat",
+            "serving_cal": "163",
+            "serving_prot": "28",
+            "health_score": "11.093596996848435"
+        },
+        
+... (diskip, hanya contoh saja, aslinya API akan menghasilkan 15 makanan paling cocok dengan constraint yang diberikan)
+        {
+            "vitamin_c_mg": "15.3",
+            "vitamin_b11_mg": "0.1",
+            "sodium_mg": "0.7",
+            "calcium_mg": "50.9",
+            "carbohydrates_g": "43.1",
+            "food": "spaghetti with meat sauce",
+            "iron_mg": "3.5",
+            "calories_kcal": "255",
+            "sugars_g": "7.4",
+            "fibers_g": "5.1",
+            "fat_g": "2.9",
+            "protein_g": "14.3",
+            "food_normalized": "spaghetti with meat sauce",
+            "serving_cal": "255",
+            "serving_prot": "14.3",
+            "health_score": "3.5476968162479334"
+        }
+    ]
+}
+- Untuk endpoint GET /api/recommendation/food, API akan menampilkan keseluruhan database dalam bentuk String JSON 
+```
+- Untuk endpoint GET /ping, API hanya akan menampilkan String JSON berikut:
+```
+{"status":"ok"}
+```
+
+### H. Cara Deployment pada STB dengan Docker
 1. Clone repositori ini pada STB dengan 
 ```
 git clone https://github.com/19623238-Favian/API-Healthy-Grocery.git
@@ -97,7 +192,7 @@ curl http://localhost:5432/ping
 ```
 atau mengunjungi url https://api.cirro.my.id/ping (asumsi tunneling sudah dilakukan)
 
-### G. Struktur repositori
+### I. Struktur repositori
 ```
 API-Healthy-Grocery/
 ├── app/                -> Berisi semua source code yang dibutuhkan API
