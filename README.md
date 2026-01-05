@@ -13,7 +13,8 @@ Layanan ini dikembangkan menggunakan **Codeigniter 4** dan menerapkan **token-ba
 
 ### B. Fitur Utama
 - Autentikasi menggunakan Bearer Token (Authorization Header)
-- Algoritma rekomendasi makanan berdasarkan kadar nutrisi makanan seperti:
+- Memanggil database berisi data makanan beserta nutrisinya
+- Algoritma rekomendasi makanan sehat berdasarkan kadar nutrisi makanan seperti:
   - Maksimum kalori per sajian (kcal)
   - Karbohidrat (g)
   - Protein (g)
@@ -153,8 +154,13 @@ Dan berikut adalah contoh Output yang dihasilkan oleh API (untuk POST ke endpoin
         }
     ]
 }
-- Untuk endpoint GET /api/recommendation/food, API akan menampilkan keseluruhan database dalam bentuk String JSON 
 ```
+
+- Untuk endpoint GET /api/recommendation/food, API akan menampilkan keseluruhan database (3454 makanan) dalam bentuk String JSON, seperti berikut (hanya cuplikan saja):
+```
+{"status":"success","total":3454,"data":[{"vitamin_c_mg":"0.082","vitamin_b11_mg":"0.086","sodium_mg":"0.018","calcium_mg":"2.8","carbohydrates_g":"0.073","food":"margarine with yoghurt","iron_mg":"0.027","calories_kcal":"88","sugars_g":"0","fibers_g":"0","fat_g":"9.8","protein_g":"0.058","food_normalized":"margarine with yoghurt"},{"vitamin_c_mg":"0.4","vitamin_b11_mg":"0.005","sodium_mg":"0.065","calcium_mg":"10.2","carbohydrates_g":"3.7","food":"sunflower seed butter","iron_mg":"0.7","calories_kcal":"99","sugars_g":"1.7","fibers_g":"0.9","fat_g":"8.8","protein_g":"2.8","food_normalized":"sunflower seed butter"},
+...
+``` 
 - Untuk endpoint GET /ping, API hanya akan menampilkan String JSON berikut:
 ```
 {"status":"ok"}
