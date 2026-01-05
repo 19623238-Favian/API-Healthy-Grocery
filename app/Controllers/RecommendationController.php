@@ -26,12 +26,20 @@ class RecommendationController extends ResourceController
         $payload = $this->request->getJSON(true);
 
         $constraints = $payload['constraints'] ?? [];
+        $dietFlags   = $payload['diet_flags'] ?? [];
+        $meta        = $payload['meta'] ?? [];
 
         $service = new FoodRecommendationService();
-        $result = $service->recommend($constraints);
+        $result = $service->recommend($constraints,$dietFlags,$meta);
+
+        if (!isset($payload['constraints']) && !isset($payload['diet_flags'])) {
+            return $this->fail('No recommendation parameters provided', 422);
+        }
+
 
         return $this->response->setJSON([
             'status' => 'success',
+            'count'  => count($result),
             'data' => $result
         ]);
     }
